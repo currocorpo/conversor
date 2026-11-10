@@ -20,7 +20,7 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
   text-align: center;
 }
 
@@ -49,6 +49,7 @@ input[type="number"] {
   border-radius: 6px;
   font-size: 1rem;
   outline: none;
+  margin-bottom: 0.5rem;
   transition: border-color 0.2s;
 }
 
@@ -58,12 +59,12 @@ input[type="number"]:focus {
 
 button {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.65rem;
   background-color: #0066cc;
   color: #ffffff;
   border: none;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -74,11 +75,13 @@ button:hover {
 }
 
 .result {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eeeeee;
   font-size: 1.2rem;
   font-weight: bold;
   color: #222222;
-  min-height: 1.5rem;
+  min-height: 2.5rem;
 }
 
 .error {

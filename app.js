@@ -1,40 +1,68 @@
 document.addEventListener('DOMContentLoaded', () => {
   const celsiusInput = document.getElementById('celsius');
-  const convertBtn = document.getElementById('convert-btn');
+  const fahrenheitInput = document.getElementById('fahrenheit');
+  const toFahrenheitBtn = document.getElementById('to-fahrenheit-btn');
+  const toCelsiusBtn = document.getElementById('to-celsius-btn');
   const resultDiv = document.getElementById('result');
 
-  function convertTemperature() {
-    const celsiusValue = celsiusInput.value.trim();
+  function formatValue(value) {
+    return Number.isInteger(value) ? value : parseFloat(value.toFixed(2));
+  }
 
-    if (celsiusValue === '') {
-      resultDiv.textContent = 'Por favor, introduce un número.';
+  function convertToFahrenheit() {
+    const rawValue = celsiusInput.value.trim();
+
+    if (rawValue === '') {
+      resultDiv.textContent = 'Por favor, introduce un valor en Celsius.';
       resultDiv.className = 'result error';
       return;
     }
 
-    const celsius = parseFloat(celsiusValue);
+    const celsius = parseFloat(rawValue);
 
     if (isNaN(celsius)) {
-      resultDiv.textContent = 'Introduce un valor numérico válido.';
+      resultDiv.textContent = 'Introduce un número válido.';
       resultDiv.className = 'result error';
       return;
     }
 
-    const fahrenheit = (celsius * 9 / 5) + 32;
-
-    // Formatear dynamicamente según sea entero o decimal
-    const formattedFahrenheit = Number.isInteger(fahrenheit) ? fahrenheit : fahrenheit.toFixed(2);
-    
-    resultDiv.textContent = `${celsius} ºC → ${formattedFahrenheit} ºF`;
+    const fahrenheit = formatValue((celsius * 9 / 5) + 32);
+    fahrenheitInput.value = fahrenheit;
+    resultDiv.textContent = `${celsius} ºC → ${fahrenheit} ºF`;
     resultDiv.className = 'result';
   }
 
-  convertBtn.addEventListener('click', convertTemperature);
+  function convertToCelsius() {
+    const rawValue = fahrenheitInput.value.trim();
 
-  // Permitir la conversión al pulsar "Enter" en el input
-  celsiusInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-      convertTemperature();
+    if (rawValue === '') {
+      resultDiv.textContent = 'Por favor, introduce un valor en Fahrenheit.';
+      resultDiv.className = 'result error';
+      return;
     }
+
+    const fahrenheit = parseFloat(rawValue);
+
+    if (isNaN(fahrenheit)) {
+      resultDiv.textContent = 'Introduce un número válido.';
+      resultDiv.className = 'result error';
+      return;
+    }
+
+    const celsius = formatValue((fahrenheit - 32) * 5 / 9);
+    celsiusInput.value = celsius;
+    resultDiv.textContent = `${fahrenheit} ºF → ${celsius} ºC`;
+    resultDiv.className = 'result';
+  }
+
+  toFahrenheitBtn.addEventListener('click', convertToFahrenheit);
+  toCelsiusBtn.addEventListener('click', convertToCelsius);
+
+  celsiusInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') convertToFahrenheit();
+  });
+
+  fahrenheitInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') convertToCelsius();
   });
 });
